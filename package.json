@@ -1,0 +1,25 @@
+{
+  "name": "typescript-node-doctor-booking-page",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/phillis-fung/typescript-node-doctor-booking-page.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/phillis-fung/typescript-node-doctor-booking-page/issues"
+  },
+  "homepage": "https://github.com/phillis-fung/typescript-node-doctor-booking-page#readme",
+  "description": "",
+  "dependencies": {
+    "better-sqlite3": "^8.0.1",
+    "express": "^4.18.2"
+  }
+}

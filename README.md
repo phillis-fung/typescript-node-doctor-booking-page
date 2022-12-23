@@ -1,1 +1,0 @@
-# typescript-node-doctor-booking-page
