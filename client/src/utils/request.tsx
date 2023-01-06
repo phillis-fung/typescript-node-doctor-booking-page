@@ -1,8 +1,6 @@
 import axios from "axios";
 import { bookingRequestBody } from "./bookingRequestBody";
 
-const baseURL = "https://bowtie-fe-assignment-api.onrender.com"
-
 const serviceAPI = axios.create({
     timeout: 50000,
     headers: {
@@ -16,11 +14,11 @@ const serviceAPI = axios.create({
 });
 
 export const getDoctorList = () => {
-    return serviceAPI.get(baseURL+"/doctor");
+    return serviceAPI.get("/doctors");
 }
 
 export const getDoctor = (id:string) => {
-    return serviceAPI.get(baseURL+"/doctor/"+id);
+    return serviceAPI.get("/doctor/"+id);
 }
 
 export const postBooking = (name: string, start: number, doctorId: string, date: string) => {
@@ -32,15 +30,15 @@ export const postBooking = (name: string, start: number, doctorId: string, date:
         date: date,
         status: "confirmed"
       }
-    return serviceAPI.post(baseURL+"/booking", JSON.stringify(params));
+    return serviceAPI.post("/booking", JSON.stringify(params));
 }
 
 export const patchBooking = (param: any) => {
-    return serviceAPI.patch(baseURL+"/booking", JSON.stringify(param));
+    return serviceAPI.patch("/booking", JSON.stringify(param));
 }
 
 export const getBooking = (id:string) => {
-    return serviceAPI.get(baseURL+"/booking/"+id);
+    return serviceAPI.get("/booking/"+id);
 }
 
 serviceAPI.interceptors.request.use(

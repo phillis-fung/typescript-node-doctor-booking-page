@@ -6,24 +6,6 @@ import DoctorProfile from './components/doctorProfile';
 import PopupModal from './components/popupModal';
 import {getDoctorList} from './utils/request';
 
-function App2() {
-  const [data, setData] = React.useState(null);
-
-  React.useEffect(() => {
-    fetch("/api")
-      .then((res) => res.json())
-      .then((data) => setData(data.message));
-  }, []);
-
-  return (
-    <div className="App">
-      <header className="App-header">
-        <p>{!data ? "Loading..." : data}</p>
-      </header>
-    </div>
-  );
-}
-
 function App() {
 
   const [showPopup, setShowPopup] = React.useState(false);
@@ -74,28 +56,22 @@ function App() {
   }, []);
 
   //use doctorList -> localDoctorlist for local testing
-  var doctors = localDoctorlist.map(function (doctor: { name: string; id: string; address: { district: any; line_1: any; line_2: any; }; opening_hours: any; }){
-    var title = doctor.name + " ("+ doctor.id + ")";
-    var district = doctor.address.district;
-    var line_1 = doctor.address.line_1;
-    var line_2 = doctor.address.line_2;
-    var doctor_opening_hours = doctor.opening_hours;
-    var sorter = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT']
-    doctor_opening_hours.sort(function sortByDay(a: { day: any; }, b: { day: any; }) {
-      let day1 = a.day;
-      let day2 = b.day;
-      return sorter.indexOf(day1)- sorter.indexOf(day2);
-    });
+  var doctors = doctorList.map(function (doctor: { name: string; doctor_id: string; doctor_district: string; address_line1: string; address_line2: string; openingHours: any; }){
+    var title = doctor.name + " ("+ doctor.doctor_id + ")";
+    var district = doctor.doctor_district;
+    var line_1 = doctor.address_line1;
+    var line_2 = doctor.address_line2;
+    var doctor_opening_hours = doctor.openingHours;
 
-    var openingHours = doctor_opening_hours.map(function (openingHours: { day: any; start: string; end: string; isClosed: any; }){
-      var openingDay = openingHours.day;
-      var startHour = openingHours.start.replace(".", ":");
-      var endHour = openingHours.end.replace(".", ":");
-      var isClosed = openingHours.isClosed;
+    var openingHours = doctor_opening_hours.map(function (openingHours: { dayOfWeekName: string; startHour: string; endHour: string; isOpen: any; }){
+      var openingDay = openingHours.dayOfWeekName;
+      var startHour = openingHours.startHour.replace(".", ":");
+      var endHour = openingHours.endHour.replace(".", ":");
+      var isClosed = !openingHours.isOpen;
 
       return (
         <>
-            <li key={doctor.id + "_" + openingDay}>{openingDay}:{isClosed? 'CLOSED' : startHour + "-" + endHour} </li> 
+            <li key={doctor.doctor_id + "_" + openingDay}>{openingDay}:{isClosed? 'CLOSED' : startHour + "-" + endHour} </li> 
         </>
       )
     })
@@ -106,7 +82,6 @@ function App() {
     for(var i= 0; i < 3; i++){
       bookingDate.push(new Date().setDate(today.getDate()+i));
     }
-    console.log('today:'+today)
 
     var bookingButtons = bookingDate.map(function (date){
       var day = new Date(date).getDate()
@@ -116,20 +91,20 @@ function App() {
       var dateFormat = [year, month, (day < 10? '0'+ day.toString() : day)].join('-');
 
       var nearlyClosed = false;
-      var isClosed = doctor_opening_hours[dayOfWeek].isClosed;
+      var isClosed = !doctor_opening_hours[dayOfWeek].isOpen;
       var isToday = 
         (new Date(date).getDate() === today.getDate()) 
         && (new Date(date).getMonth() === today.getMonth())
         && (new Date(date).getFullYear() === today.getFullYear()); 
 
-      var startBookingHour = parseInt(doctor_opening_hours[dayOfWeek].start.split('.')[0])
-      var startBookingMin = parseInt(doctor_opening_hours[dayOfWeek].start.split('.')[1])
-      var endBookingHour = parseInt(doctor_opening_hours[dayOfWeek].end.split('.')[0])
-      var endBookingMin = parseInt(doctor_opening_hours[dayOfWeek].end.split('.')[1])
+      var startBookingHour = parseInt(doctor_opening_hours[dayOfWeek].startHour.split('.')[0])
+      var startBookingMin = parseInt(doctor_opening_hours[dayOfWeek].startHour.split('.')[1])
+      var endBookingHour = parseInt(doctor_opening_hours[dayOfWeek].endHour.split('.')[0])
+      var endBookingMin = parseInt(doctor_opening_hours[dayOfWeek].endHour.split('.')[1])
 
       if(!isClosed && isToday){
-        var todayBookingPeriodStart = parseInt(doctor_opening_hours[dayOfWeek].start);
-        var todayBookingPeriodEnd = parseInt(doctor_opening_hours[dayOfWeek].end);
+        var todayBookingPeriodStart = parseInt(doctor_opening_hours[dayOfWeek].startHour);
+        var todayBookingPeriodEnd = parseInt(doctor_opening_hours[dayOfWeek].endHour);
         startBookingHour = 
           (today.getHours() < todayBookingPeriodStart)? 
             todayBookingPeriodStart : 
@@ -138,10 +113,11 @@ function App() {
         isClosed = startBookingHour > todayBookingPeriodEnd;
         nearlyClosed = startBookingHour === endBookingHour;
       }
+
     
       return (
         <Button 
-          onClick={() => onPopupShow(title, doctor.id, dateFormat, startBookingHour, startBookingMin, endBookingHour, endBookingMin)}
+          onClick={() => onPopupShow(title, doctor.doctor_id, dateFormat, startBookingHour, startBookingMin, endBookingHour, endBookingMin)}
           disabled={(isClosed || nearlyClosed)? true: false}
         >
           Book for {isToday? "today": dateFormat} {isClosed? '(CLOSED)' : ""} {!isClosed && nearlyClosed? "(Close soon)": ""}
@@ -151,7 +127,7 @@ function App() {
 
     return (
       <DoctorProfile>
-        <div key={doctor.id} style={{margin: "15px"}}>
+        <div key={doctor.doctor_id} style={{margin: "15px"}}>
             <div className="role-title">Doctor: {title} </div>
             <div className="span-info"> District: {district} </div>
             <div className="span-info"> Address: </div>
@@ -190,4 +166,4 @@ function App() {
   );
 }
 
-export default App2;
+export default App;

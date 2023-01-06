@@ -1,14 +1,39 @@
 const db = require('../services/db');
-const config = require('../config');
+const config = require('../services/config');
 
-function getMultiple(page = 1) {
+function getDoctorList(page = 1) {
   const offset = (page - 1) * config.listPerPage;
-  const data = db.query(`SELECT * FROM quote LIMIT ?,?`, [offset, config.listPerPage]);
+  const data = db.query(`
+    SELECT * from doctor
+    Inner JOIN (select id as districtId, district_name from District) ON doctor.district_id = districtId
+    LIMIT ?,?
+  `, [offset, config.listPerPage]);
   const meta = {page};
 
   return {
     data,
     meta
+  }
+}
+
+function getDoctorInfo(doctor_id) {
+  const page = 1;
+  const offset = (page - 1) * config.listPerPage;
+  const data = db.query(`
+    SELECT * from opening_hours
+    Inner JOIN DayOfWeek ON Opening_hours.dayOfWeek = DayOfWeek.id
+    where doctor_id = ?
+    Order by dayOfWeek
+    LIMIT ?,?
+  `, [doctor_id, offset, config.listPerPage]);
+  const meta = page;
+  const success = data.length == 0 ? false : true;
+  const message = "";
+
+  return {
+    success,
+    data,
+    message
   }
 }
 
@@ -51,6 +76,7 @@ function create(quoteObj) {
 }
 
 module.exports = {
-  getMultiple,
+  getDoctorList,
+  getDoctorInfo,
   create
 }
