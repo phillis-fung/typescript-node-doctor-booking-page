@@ -6,6 +6,7 @@ import {postBooking} from "../utils/request";
 
 interface popupModalInterface {
     patientName: string,
+    patientId: string,
     showPopup: boolean;
     onPopupDismiss?: Function;
     onClickTimeslot?: Function;
@@ -93,7 +94,7 @@ const PopupButtonRow = styled.div`
 `;
 
 
-const PopupModal: React.FC<popupModalInterface> = ({patientName, showPopup, onPopupDismiss, doctorTitle, doctorId, bookingDate, startBookingHour, startBookingMin, endBookingHour, endBookingMin}: popupModalInterface) => { 
+const PopupModal: React.FC<popupModalInterface> = ({patientName, patientId, showPopup, onPopupDismiss, doctorTitle, doctorId, bookingDate, startBookingHour, startBookingMin, endBookingHour, endBookingMin}: popupModalInterface) => { 
     const defaultErrorMessage = "Please choose on your favorable timeslot";
     const [selectedTimeslot, setSelectedTimeslot] = React.useState("");
     const [selectedDate, setSelectedDate] = React.useState("");
@@ -128,7 +129,7 @@ const PopupModal: React.FC<popupModalInterface> = ({patientName, showPopup, onPo
                 setCreateBooking(false);
                 setDisableButton(true);
 
-                await postBooking(patientName, Number(selectedTimeslot.replace(":", ".")), doctorId, selectedDate).then(
+                await postBooking(patientId, Number(selectedTimeslot.replace(":", ".")), doctorId, selectedDate).then(
                     (response) => {
                         if(response.status === 200){
                             alert("Confirmed booking on "+selectedDate+" "+selectedTimeslot);

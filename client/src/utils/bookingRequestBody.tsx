@@ -1,7 +1,7 @@
 export type bookingRequestBody = {
-    id: string,
-    name: string,
-    start: number,
+    id?: string,
+    patientId: string,
+    startHour: number,
     doctorId: string,
     date: string,
     status?: string

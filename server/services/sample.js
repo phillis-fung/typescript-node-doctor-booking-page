@@ -62,17 +62,24 @@ function validateCreate(quote) {
   }
 }
 
-function create(quoteObj) {
-  validateCreate(quoteObj);
-  const {quote, author} = quoteObj;
-  const result = db.run('INSERT INTO quote (quote, author) VALUES (@quote, @author)', {quote, author});
+function create(tableName, params) {
+  //validateCreate(quoteObj);
+
+  const result = db.run('INSERT INTO booking (doctor_id, patient_id, startHour, date) VALUES (?, ?, ?, ?)', params);
   
   let message = 'Error in creating quote';
+  let success = false;
+
   if (result.changes) {
-    message = 'Quote created successfully';
+    message = 'Quote created successfully'; 
+    success = true;
   }
 
-  return {message};
+  return {
+    success,
+    result,
+    message
+  }
 }
 
 module.exports = {

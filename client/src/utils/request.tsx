@@ -21,14 +21,12 @@ export const getDoctor = (id:string) => {
     return serviceAPI.get("/doctor/"+id);
 }
 
-export const postBooking = (name: string, start: number, doctorId: string, date: string) => {
+export const postBooking = (patientId: string, startHour: number, doctorId: string, date: string) => {
     let params: bookingRequestBody = {
-        id: new Date().getTime().toString(),
-        name: name,
-        start: start,
+        patientId: patientId,
+        startHour: startHour,
         doctorId: doctorId,
-        date: date,
-        status: "confirmed"
+        date: date
       }
     return serviceAPI.post("/booking", JSON.stringify(params));
 }

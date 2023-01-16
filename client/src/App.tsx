@@ -18,6 +18,7 @@ function App() {
   const [endBookingMin, setEndBookingMin] = React.useState(0);
   const [doctorList, setDoctorList] = React.useState([]);
   const [patientName, setPatientName] = React.useState("Chan Tai Man");
+  const [patientId, setPatientId] = React.useState("P0001");
 
   const onPopupShow = (
       doctorTitle:string,
@@ -88,7 +89,7 @@ function App() {
       var month = new Date(date).getMonth() + 1
       var year = new Date(date).getFullYear();
       var dayOfWeek = new Date(date).getDay();
-      var dateFormat = [year, month, (day < 10? '0'+ day.toString() : day)].join('-');
+      var dateFormat = [year, (month < 10? '0'+ month.toString() : month), (day < 10? '0'+ day.toString() : day)].join('-');
 
       var nearlyClosed = false;
       var isClosed = !doctor_opening_hours[dayOfWeek].isOpen;
@@ -147,10 +148,11 @@ function App() {
   return (
     <div className="doctor-booking-page">
       <HeaderBar title="Doctor Booking Page"></HeaderBar>
-      <div style={{margin: '5vh 5vh 0vh 5vh'}}>Hello! {patientName}</div>
+      <div style={{margin: '5vh 5vh 0vh 5vh'}}>Hello! {patientName} ({patientId})</div>
       {doctors}  
       <PopupModal 
         patientName={patientName}
+        patientId={patientId}
         showPopup={showPopup} 
         bookingDate={bookingDate} 
         startBookingHour={startBookingHour}

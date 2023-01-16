@@ -5,6 +5,11 @@ const express = require('express');
 const service = require('./services/sample');
 
 const app = express();
+
+app.use(express.urlencoded());
+
+// Parse JSON bodies (as sent by API clients)
+app.use(express.json());
   
 app.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`);
@@ -38,6 +43,37 @@ app.get("/doctor/:id", (req, res) => {
   res.status(doctor_opening_hours.success? 200 : 400)
     .json(doctor_opening_hours);
 });
+
+// Handle POST requests to /booking route
+app.post("/booking/", (req, res) => {
+  // var errors=[]
+  // if (!req.body.password){
+  //     errors.push("No password specified");
+  // }
+  // if (!req.body.email){
+  //     errors.push("No email specified");
+  // }
+  // if (errors.length){
+  //     res.status(400).json({"error":errors.join(",")});
+  //     return;
+  // }
+console.log(req.body);
+
+  var data = {
+      patientId: req.body.patientId,
+      startHour: req.body.startHour,
+      doctorId : req.body.doctorId,
+      date: req.body.date
+  };
+
+  // var sql ='INSERT INTO booking (doctorId, patientId, startHour, date) VALUES (?,?,?,?)'
+  var tableName = "booking"
+  var params =[data.doctorId, data.patientId, data.startHour, data.date]
+  var dbInsert = service.create(tableName, params);
+
+  res.status(dbInsert.success? 200 : 400)
+    .json(dbInsert.message);
+})
 
 // All other GET requests not handled before will return our React app
 app.get('*', (req, res) => {
