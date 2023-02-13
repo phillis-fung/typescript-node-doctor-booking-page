@@ -1,8 +1,7 @@
 # Doctor Booking Page
 Demo of an interface for member to reserve a medical appoionment online
 
-https://necktie-doctor-booking-page-demo.netlify.app/
-
+https://typescript-node-doctor-booking-page-6seae775u-phillis-fung.vercel.app/
 
 ## Package used
 
