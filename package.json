@@ -5,8 +5,7 @@
   "private": true,
   "proxy": "http://localhost:3001",
   "scripts": {
-    "start": "npm run setup",
-    "setup": "node server/index.js",
+    "start": "node server/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
