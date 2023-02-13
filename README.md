@@ -1,5 +1,5 @@
 # Doctor Booking Page
-Demo of an interface for member to reserve a medical appoionment online
+Demo of an interface for member to reserve a medical appoionment online:
 
 https://typescript-node-doctor-booking-page-6seae775u-phillis-fung.vercel.app/
 
@@ -16,29 +16,26 @@ https://typescript-node-doctor-booking-page-6seae775u-phillis-fung.vercel.app/
  - apply css style on universal objects (Buttons, H1, p, span etc.)
  - easy to maintain the style and structure within the same file 
  - can levage the style of exisiting components and add custoimzation
+ 
+[sqlite](https://www.sqlite.org/index.html)
+ - no domain hosting needed
+ - all data kept in local
+ - can read and write data offline
+ 
+[expressJS](https://github.com/expressjs/express)
+- set different routes to handle the HTTP request
+
 
 ## Development
 Run `npm run start ` to start the project
 
-Run ` npm run build `to build the app for production to the  `build`  folder, which bundles the minified build and hashed-included-filenames.
-
-> Before deploying to production environment
-
-- Encrypt the API key to avoid leakage of sensitive information.
-- Check if all console log has been removed to preserve the performance and avoid leakage of sensitive information.
-
-## Design 
-The button style and choice of color are taking reference from the homepage of Necktie.
-
-- ![#ff408e](https://placehold.co/50x15/ff408e/ff408e.png) `#ff408e`
-- ![#f4f6fc](https://placehold.co/50x15/f4f6fc/f4f6fc.png) `#f4f6fc`
-- ![#2a2e42](https://placehold.co/50x15/2a2e42/2a2e42.png) `#2a2e42`
+Run ` cd client npm run build `to build the app for production to the  `build`  folder, which bundles the minified build and hashed-included-filenames.
 
 ### Features 
 
  - Allow user to see the doctor's profile (name, address, opening hours)
  - Only future timeslots within the opening hours of these three days will be displayed
- - Create bookings
+ - Create bookings (Only works in local as we used sqlite)
  - Error message will be displayed if there are validation error (empty input on timeslot) or API response error
 
 ### Assumptions
