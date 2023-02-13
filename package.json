@@ -2,7 +2,8 @@
   "name": "typescript-node-doctor-booking-page",
   "version": "1.0.0",
   "main": "index.js",
-  "proxy": "http://localhost:3001",
+  "proxy": "http://localhost:5000",
+  "homepage": ".",
   "scripts": {
     "start": "npm run setup",
     "setup": "node server/index.js",
