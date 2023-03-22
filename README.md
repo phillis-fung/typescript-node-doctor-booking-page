@@ -1,7 +1,7 @@
 # Doctor Booking Page
 Demo of an interface for member to reserve a medical appoionment online:
 
-https://typescript-node-doctor-booking-page-6seae775u-phillis-fung.vercel.app/
+https://typescript-node-doctor-booking-page.vercel.app/
 
 ## Package used
 
