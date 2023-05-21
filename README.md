@@ -26,8 +26,8 @@ https://typescript-node-doctor-booking-page.vercel.app/
 
 
 ## Run locally
-Run `npm run start ` to start the server-side project
-Run `cd client npm run start ` to start the client-side project
+- Run `npm run start ` to start the server-side project
+- Run `cd client npm run start ` to start the client-side project
 
 ## Production 
 Run ` cd client npm run build `to build the app for production to the  `build`  folder, which bundles the minified build and hashed-included-filenames.
