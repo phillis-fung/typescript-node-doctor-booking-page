@@ -10,7 +10,6 @@ https://typescript-node-doctor-booking-page.vercel.app/
  - automatic transform response to JSON format (save steps to handle the format of response)
  - allows request timeout to handle API error
  - wide broswer support coverage
- - struggled if use fetch in the beginning and read [this article](https://www.geeksforgeeks.org/difference-between-fetch-and-axios-js-for-making-http-requests/) for more insignt
 
 [styled-components](https://github.com/styled-components/styled-components)
  - apply css style on universal objects (Buttons, H1, p, span etc.)
@@ -27,7 +26,7 @@ https://typescript-node-doctor-booking-page.vercel.app/
 
 
 ## Development
-Run `npm run start ` to start the project
+Run `cd client npm run start ` to start the project
 
 Run ` cd client npm run build `to build the app for production to the  `build`  folder, which bundles the minified build and hashed-included-filenames.
 
@@ -53,15 +52,15 @@ Run ` cd client npm run build `to build the app for production to the  `build`  
 
 ### Potential Improvement 
 > Requirements
-1. Discuss the booking date validate period  (e.g only can book within 2 weeks)
+1. Extend booking period  (e.g can book within 2 weeks)
 2. Add a phone number field for contact (suggest to be prefilled as well)
 3. Any booking limit for each time slot per doctor?
 4. Any booking limit for each patient?
 
 > Design
-1. Add the common modules (header, footer, navagtion bar) for UI checking
-2. Test the intergation with other feactures (e.g. switch langauge, exit point handlings)
-3. Test all possible entry points
-4. More communication with the backend developers to understand the API restrictions and improve the handling on error cases
+1. Display the reserved timesolt, should also be open for modification
+2. Add the common modules (header, footer, navagtion bar) for UI checking
+3. Test the intergation with other feactures (e.g. switch langauge, exit point handlings)
+4. Test all possible entry points
 
 
