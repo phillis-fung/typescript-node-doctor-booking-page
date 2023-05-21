@@ -135,6 +135,10 @@ const PopupModal: React.FC<popupModalInterface> = ({patientName, patientId, show
                             alert("Confirmed booking on "+selectedDate+" "+selectedTimeslot);
                             CtaBtnClick();
                         }
+                        if(response.status === 500){
+                            alert("SQLite is not supported in this online demo, please download the source code and try full function in local environment, thanks you");
+                            CtaBtnClick();
+                        }
                     }
                 ).catch( 
                     error => {
